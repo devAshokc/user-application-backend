@@ -14,3 +14,7 @@ export async function getUserByName(email) {
         .collection("users")
         .findOne({email: email});
 }
+
+export async function getUserByEmail(email) {
+    return await client.db('Application').collection('user').findOne({email:email});
+}

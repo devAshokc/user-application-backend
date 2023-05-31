@@ -54,8 +54,8 @@ router.post("/login", async function (request, response) {
         const isPasswordMatch = await bcrypt.compare(password, storedBDPassword)
         console.log(isPasswordMatch)
         if (isPasswordMatch) {
-            const token = jwt.sign({id: userFormDB._id}, process.env.SECRET_KEY);
-            response.send({message: "Successful login", token: token})
+            const token = jwt.sign({id: userFormDB._id,email}, process.env.SECRET_KEY);
+            response.send({message: "Successful login", token: token, userDetail:userFormDB})
         } else{
             response.status(400).send({message: "Invalid credentials"})
         }
@@ -63,5 +63,12 @@ router.post("/login", async function (request, response) {
 
 });
 
+router.get('/getDetails/:email', async function(request,response){
+    let {email} = request.params
+    console.log(request.params)
+    const result = await getUserByEmail(email);
+    console.log(result)
+    response.send(result)
+  });
 
 export default router;
