@@ -34,7 +34,6 @@ router.post("/signup", async function (request, response) {
             email: email,
             password: hashedPassword,
             phone: phone,
-            name: name,
         });    
         response.send(result)
     }
